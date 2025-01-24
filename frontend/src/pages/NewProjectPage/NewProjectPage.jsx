@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import * as postService from '../../services/postService';
+import * as projectService from '../../services/projectService';
 
 export default function NewProjectPage() {
   const [content, setContent] = useState('');
@@ -10,8 +10,8 @@ export default function NewProjectPage() {
   async function handleSubmit(evt) {
     evt.preventDefault();
     try {
-      const post = await postService.create(content);
-      navigate('/projects');
+      const project = await projectService.create(content);
+      navigate('/posts');
     } catch (err) {
       console.log(err);
     }
