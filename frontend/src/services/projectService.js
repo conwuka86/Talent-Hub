@@ -7,5 +7,5 @@ export async function index() {
 }
 
 export async function create(content) {
-  return sendRequest(BASE_URL, 'POST', { formData });
+  return sendRequest(BASE_URL, 'POST', { content });
 }

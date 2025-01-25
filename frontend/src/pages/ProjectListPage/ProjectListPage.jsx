@@ -5,44 +5,31 @@ import ProjectItem from '../../components/ProjectItem/ProjectItem';
 
 export default function ProjectListPage() {
   const [projects, setProjects] = useState([]);
-
-  useEffect(() => {
-    async function fetchProjects() {
-      const projects = await projectService.index();
-      setPosts(projects);
-    }
-    fetchProjects();
-  }, []);
+  
+    useEffect(() => {
+      async function fetchProjects() {
+        const projects = await projectService.index();
+        setProjects(projects);
+      }
+      fetchProjects();
+    }, []);
+  
+    const projectItems = projects.map((p) => <ProjectItem key={p._id} project={p} />);
 
   // Handle delete action
   async function handleDelete(projectId) {
     try {
       await projectService.deleteProject(projectId);
+      // Remove the deleted project from the local state
       setProjects(projects.filter((project) => project._id !== projectId));
     } catch (err) {
       console.error('Error deleting project:', err);
     }
   }
-
-  const projectItems = projects.map((p) => <ProjectItem key={p._id} project={p} />);
-
   return (
-    <div style={styles.container}>
-    <h2>Project List</h2>
-    <button onClick={() => navigate('/projects/new')} style={styles.button}>
-      Create New Project
-    </button>
-    <div style={styles.projectList}>
-      {projects.map((project) => (
-        <div key={project._id} style={styles.projectCard}>
-          <h3>{project.name}</h3>
-          <p>{project.description}</p>
-          <button onClick={() => handleDelete(project._id)} style={{ ...styles.button, backgroundColor: 'red' }}>
-            Delete
-          </button>
-        </div>
-      ))}
-    </div>
-  </div>
+    <>
+      <h1>Project List</h1>
+      <section className="project-item-container">{projectItems}</section>
+    </>
   );
 }
