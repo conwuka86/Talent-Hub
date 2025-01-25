@@ -14,6 +14,23 @@ export default function ProjectListPage() {
       fetchProjects();
     }, []);
   
+
+    async function handleUpdate(updatedProject) {
+      setProjects((prevProjects) =>
+        prevProjects.map((p) => (p._id === updatedProject._id ? updatedProject : p))
+      );
+    }
+    
+    async function handleDelete(projectId) {
+      try {
+        await projectService.deleteProject(projectId);
+        setProjects(projects.filter((project) => project._id !== projectId));
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    
     const projectItems = projects.map((p) => <ProjectItem key={p._id} project={p} />);
 
   // Handle delete action
