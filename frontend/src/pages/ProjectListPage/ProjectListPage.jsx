@@ -5,48 +5,46 @@ import ProjectItem from '../../components/ProjectItem/ProjectItem';
 
 export default function ProjectListPage() {
   const [projects, setProjects] = useState([]);
-  
-    useEffect(() => {
-      async function fetchProjects() {
-        const projects = await projectService.index();
-        setProjects(projects);
-      }
-      fetchProjects();
-    }, []);
-  
 
-    async function handleUpdate(updatedProject) {
-      setProjects((prevProjects) =>
-        prevProjects.map((p) => (p._id === updatedProject._id ? updatedProject : p))
-      );
+  useEffect(() => {
+    async function fetchProjects() {
+      const projects = await projectService.index();
+      setProjects(projects);
     }
-    
-    async function handleDelete(projectId) {
-      try {
-        await projectService.deleteProject(projectId);
-        setProjects(projects.filter((project) => project._id !== projectId));
-      } catch (err) {
-        console.error(err);
-      }
-    }
+    fetchProjects();
+  }, []);
 
-    
-    const projectItems = projects.map((p) => <ProjectItem key={p._id} project={p} />);
-
-  // Handle delete action
-  async function handleDelete(projectId) {
+  async function handleUpdate(id, content) {
     try {
-      await projectService.deleteProject(projectId);
-      // Remove the deleted project from the local state
-      setProjects(projects.filter((project) => project._id !== projectId));
+      const updatedProject = await projectService.updateProject(id, content);
+      setProjects((prev) =>
+        prev.map((p) => (p._id === id ? updatedProject : p))
+      );
+    } catch (err) {
+      console.error('Error updating project:', err);
+    }
+  }
+
+  async function handleDelete(id) {
+    try {
+      await projectService.deleteProject(id);
+      setProjects((prev) => prev.filter((p) => p._id !== id));
     } catch (err) {
       console.error('Error deleting project:', err);
     }
   }
+
   return (
-    <>
+    <section>
       <h1>Project List</h1>
-      <section className="project-item-container">{projectItems}</section>
-    </>
+      {projects.map((project) => (
+        <ProjectItem
+          key={project._id}
+          project={project}
+          onUpdate={handleUpdate}
+          onDelete={handleDelete}
+        />
+      ))}
+    </section>
   );
 }

@@ -1,4 +1,4 @@
-import sendRequest from "./sendRequest";
+import sendRequest from './sendRequest';
 
 const BASE_URL = '/api/projects';
 
@@ -17,3 +17,4 @@ export async function updateProject(id, content) {
 export async function deleteProject(id) {
   return sendRequest(`${BASE_URL}/${id}`, 'DELETE');
 }
+

@@ -6,6 +6,7 @@ const projectsCtrl = require('../controllers/projects');
 
 // POST /api/projects
 router.post('/', projectsCtrl.create);
+
 // GET /api/projects
 router.get('/', projectsCtrl.index);
 
@@ -14,6 +15,5 @@ router.put('/:id', projectsCtrl.update);
 
 // DELETE /api/projects/:id
 router.delete('/:id', projectsCtrl.delete);
-
 
 module.exports = router;

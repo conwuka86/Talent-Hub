@@ -7,11 +7,10 @@ export default function ProjectItem({ project, onUpdate, onDelete }) {
 
   async function handleUpdate() {
     try {
-      const updatedProject = await projectService.updateProject(project._id, content);
-      onUpdate(updatedProject); // Pass the updated project to parent
+      await onUpdate(project._id, content);
       setEditing(false);
     } catch (err) {
-      console.error(err);
+      console.error('Update failed:', err);
     }
   }
 
