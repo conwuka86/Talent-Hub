@@ -23,6 +23,12 @@ export default function NavBar({ user, setUser }) {
           &nbsp; | &nbsp;
           <NavLink to="/projects/new">New Project</NavLink>
           &nbsp; | &nbsp;
+          <NavLink to="/talents" end>
+            Talents
+          </NavLink>
+          &nbsp; | &nbsp;
+          <NavLink to="/talents/new">Add Talent</NavLink>
+          &nbsp; | &nbsp;
           <Link to="" onClick={handleLogOut}>
             Log Out
           </Link>
