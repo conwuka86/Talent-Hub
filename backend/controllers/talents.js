@@ -19,7 +19,7 @@ async function index(req, res) {
 
 async function create(req, res) {
   try {
-    req.body.user = req.user._id; // Assign user ID from request
+    req.body.user = req.user._id;
     const talent = await Talent.create(req.body);
     res.json(talent);
   } catch (err) {
@@ -34,7 +34,7 @@ async function update(req, res) {
   try {
     const updatedTalent = await Talent.findByIdAndUpdate(
       req.params.id,
-      { skill: req.body.skill },
+      req.body,
       { new: true }
     );
     if (!updatedTalent) {

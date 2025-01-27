@@ -5,7 +5,6 @@ const projectSchema = new Schema(
   {
     name: { type: String, required: true }, // Project Name
     description: { type: String, required: true }, // Project Description
-    content: { type: String }, // Optional field for additional content
     user: {
       type: Schema.Types.ObjectId,
       required: true,
