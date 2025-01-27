@@ -27,7 +27,7 @@ export default function TalentItem({ talent, onUpdate, onDelete }) {
           <h4>{new Date(talent.createdAt).toLocaleDateString()}</h4>
           <p>{talent.skill}</p>
           <button onClick={() => setEditing(true)}>Edit</button>
-          <button onClick={() => onDelete(project._id)}>Delete</button>
+          <button onClick={() => onDelete(talent._id)}>Delete</button>
         </>
       )}
     </article>

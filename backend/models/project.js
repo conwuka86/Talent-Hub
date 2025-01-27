@@ -35,4 +35,4 @@ const projectSchema = new Schema(
   }
 );
 
-module.exports = mongoose.model('Post', projectSchema);
+module.exports = mongoose.model('Project', projectSchema);

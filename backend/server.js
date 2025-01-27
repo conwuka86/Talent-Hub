@@ -28,6 +28,9 @@ app.use(require('./middleware/ensureLoggedIn'));
 
 app.use('/api/projects', require('./routes/projects'));
 
+app.use('/api/talents', require('./routes/talents'));
+
+
 
 
 // Use a "catch-all" route to deliver the frontend's production index.html

@@ -35,4 +35,4 @@ const talentSchema = new Schema(
   }
 );
 
-module.exports = mongoose.model('Post', talentSchema);
+module.exports = mongoose.model('Talent', talentSchema);

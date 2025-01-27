@@ -40,7 +40,7 @@ export default function TalentListPage() {
       {talents.map((talent) => (
         <TalentItem
           key={talent._id}
-          project={talent}
+          talent={talent}
           onUpdate={handleUpdate}
           onDelete={handleDelete}
         />

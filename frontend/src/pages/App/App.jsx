@@ -5,7 +5,7 @@ import './App.css';
 import HomePage from '../HomePage/HomePage';
 import ProjectListPage from '../ProjectListPage/ProjectListPage';
 import NewProjectPage from '../NewProjectPage/NewProjectPage';
-import TalentListPage from '../TalentListPage/TalenttListPage';
+import TalentListPage from '../TalentListPage/TalentListPage';
 import NewTalentPage from '../NewTalentPage/NewTalentPage';
 import SignUpPage from '../SignUpPage/SignUpPage';
 import LogInPage from '../LogInPage/LogInPage';
