@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import * as projectService from '../../services/projectService';
+import './ProjectItem.css';
 
 export default function ProjectItem({ project, onUpdate, onDelete }) {
   const [editing, setEditing] = useState(false);
@@ -12,26 +12,47 @@ export default function ProjectItem({ project, onUpdate, onDelete }) {
   }
 
   return (
-    <article>
+    <div className="project-card">
       {editing ? (
         <>
-          <input value={name} onChange={(e) => setName(e.target.value)} />
+          <input
+            className="project-input"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Project Name"
+          />
           <textarea
+            className="project-textarea"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            placeholder="Project Description"
           />
-          <button onClick={handleSave}>Save</button>
-          <button onClick={() => setEditing(false)}>Cancel</button>
+          <div className="project-actions">
+            <button className="primary-btn" onClick={handleSave}>
+              Save
+            </button>
+            <button className="danger-btn" onClick={() => setEditing(false)}>
+              Cancel
+            </button>
+          </div>
         </>
       ) : (
         <>
-          <h2>{project.name}</h2>
-          <p>{project.description}</p>
-          <p>Created: {new Date(project.createdAt).toLocaleDateString()}</p>
-          <button onClick={() => setEditing(true)}>Edit</button>
-          <button onClick={() => onDelete(project._id)}>Delete</button>
+          <h2 className="project-title">{project.name}</h2>
+          <p className="project-description">{project.description}</p>
+          <p className="project-date">
+            <strong>Created:</strong> {new Date(project.createdAt).toLocaleDateString()}
+          </p>
+          <div className="project-actions">
+            <button className="primary-btn" onClick={() => setEditing(true)}>
+              Edit
+            </button>
+            <button className="danger-btn" onClick={() => onDelete(project._id)}>
+              Delete
+            </button>
+          </div>
         </>
       )}
-    </article>
+    </div>
   );
 }

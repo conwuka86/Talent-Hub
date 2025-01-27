@@ -1,0 +1,89 @@
+/* SignUpPage.css */
+.signup-page {
+    padding: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  .signup-page h2 {
+    text-align: center;
+    color: #4a90e2;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .signup-form label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .signup-form input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: border-color 0.2s;
+  }
+  
+  .signup-form input:focus {
+    outline: none;
+    border-color: #4a90e2;
+  }
+  
+  .signup-form button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #4a90e2;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .signup-form button:hover {
+    background-color: #357abd;
+  }
+  
+  .signup-form button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
+  
+  .error-message {
+    color: #e74c3c;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  @media (max-width: 768px) {
+    .signup-page {
+      padding: 15px;
+    }
+  
+    .signup-page h2 {
+      font-size: 1.5rem;
+    }
+  
+    .signup-form input {
+      font-size: 0.9rem;
+    }
+  
+    .signup-form button {
+      font-size: 0.9rem;
+    }
+  }
+  

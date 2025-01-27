@@ -16,6 +16,7 @@ export default function TalentListPage() {
 
   async function handleUpdate(id, skill) {
     try {
+      console.log('Updating talent with ID:', id, 'Skill:', skill); // Log the payload
       const updatedTalent = await talentService.updateTalent(id, skill);
       setTalents((prev) =>
         prev.map((p) => (p._id === id ? updatedTalent : p))

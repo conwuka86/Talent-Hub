@@ -29,19 +29,24 @@ async function create(req, res) {
 }
 
 async function update(req, res) {
+  console.log('ID:', req.params.id);
+  console.log('Body:', req.body);
   try {
-    const talent = await Talent.findByIdAndUpdate(req.params.id, req.body, {
-      new: true, // Return updated document
-    });
-    if (!talent) {
+    const updatedTalent = await Talent.findByIdAndUpdate(
+      req.params.id,
+      { skill: req.body.skill },
+      { new: true }
+    );
+    if (!updatedTalent) {
       return res.status(404).json({ message: 'Talent not found' });
     }
-    res.json(talent);
+    res.json(updatedTalent);
   } catch (err) {
     console.error(err);
-    res.status(400).json({ message: 'Update Talent Failed' });
+    res.status(400).json({ message: 'Update Talent Failed', error: err.message });
   }
 }
+
 
 async function deleteTalent(req, res) {
   try {

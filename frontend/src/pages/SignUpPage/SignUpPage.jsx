@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import * as authService from '../../services/authService';
+import './SignUpPage.css';
 
 export default function SignUpPage({ setUser }) {
   const [formData, setFormData] = useState({
@@ -33,9 +34,9 @@ export default function SignUpPage({ setUser }) {
   const disable = formData.password !== formData.confirm;
 
   return (
-    <>
+    <div className="signup-page">
       <h2>Sign Up!</h2>
-      <form autoComplete="off" onSubmit={handleSubmit}>
+      <form className="signup-form" autoComplete="off" onSubmit={handleSubmit}>
         <label>Name</label>
         <input
           type="text"
@@ -60,7 +61,7 @@ export default function SignUpPage({ setUser }) {
           onChange={handleChange}
           required
         />
-        <label>Confirm</label>
+        <label>Confirm Password</label>
         <input
           type="password"
           name="confirm"
@@ -72,7 +73,7 @@ export default function SignUpPage({ setUser }) {
           SIGN UP
         </button>
       </form>
-      <p className="error-message">&nbsp;{errorMsg}</p>
-    </>
+      <p className="error-message">{errorMsg}</p>
+    </div>
   );
 }

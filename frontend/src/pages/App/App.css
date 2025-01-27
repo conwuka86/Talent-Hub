@@ -1,11 +1,57 @@
-.App {
-  display: grid;
-  grid-template-rows: auto auto;
+/* App.css */
+:root {
+  --primary-color: #4a90e2; /* Main accent color */
+  --secondary-color: #f5f7fa; /* Light background color */
+  --text-color: #333; /* Primary text color */
+  --border-color: #ddd;
+  --button-hover: #357abd;
+  --danger-color: #e74c3c;
 }
 
-#main-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+body {
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  background-color: var(--secondary-color);
+}
+
+h1, h2, h3 {
+  margin: 0 0 10px 0;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  padding: 10px 15px;
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: var(--button-hover);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
 }

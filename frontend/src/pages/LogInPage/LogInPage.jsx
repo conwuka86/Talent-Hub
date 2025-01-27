@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import * as authService from '../../services/authService';
+import './LogInPage.css';
 
 export default function LogInPage({ setUser }) {
   const [formData, setFormData] = useState({
@@ -21,7 +22,7 @@ export default function LogInPage({ setUser }) {
     try {
       const user = await authService.logIn(formData);
       setUser(user);
-      navigate('/posts');
+      navigate('/');
     } catch (err) {
       console.log(err);
       setErrorMsg('Log In Failed - Try Again');
@@ -29,9 +30,9 @@ export default function LogInPage({ setUser }) {
   }
 
   return (
-    <>
+    <div className="login-page">
       <h2>Log In!</h2>
-      <form autoComplete="off" onSubmit={handleSubmit}>
+      <form className="login-form" autoComplete="off" onSubmit={handleSubmit}>
         <label>Email</label>
         <input
           type="email"
@@ -51,6 +52,6 @@ export default function LogInPage({ setUser }) {
         <button type="submit">LOG IN</button>
       </form>
       <p className="error-message">&nbsp;{errorMsg}</p>
-    </>
+    </div>
   );
 }

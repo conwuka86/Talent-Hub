@@ -27,12 +27,17 @@ export default function ProjectListPage() {
   }
 
   return (
-    <>
-      <h1>Projects</h1>
-      <button onClick={() => window.location.assign('/projects/new')}>
-        Create New Project
-      </button>
-      <section>
+    <div className="project-page">
+      <div className="header">
+        <h1>Projects</h1>
+        <button
+          className="primary-btn"
+          onClick={() => window.location.assign('/projects/new')}
+        >
+          Create New Project
+        </button>
+      </div>
+      <section className="project-list-container">
         {projects.map((project) => (
           <ProjectItem
             key={project._id}
@@ -42,6 +47,7 @@ export default function ProjectListPage() {
           />
         ))}
       </section>
-    </>
+    </div>
   );
 }
+
