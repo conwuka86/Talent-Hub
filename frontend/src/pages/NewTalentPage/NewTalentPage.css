@@ -27,7 +27,8 @@
   color: #333;
 }
 
-.form-input {
+.form-input,
+.form-textarea {
   width: 100%;
   padding: 10px;
   font-size: 1rem;
@@ -35,9 +36,15 @@
   border-radius: 5px;
 }
 
-.form-input:focus {
+.form-input:focus,
+.form-textarea:focus {
   outline: none;
   border-color: #4a90e2;
+}
+
+.form-textarea {
+  min-height: 100px;
+  resize: vertical;
 }
 
 .primary-btn {
@@ -56,7 +63,7 @@
 }
 
 @media (max-width: 768px) {
-  .new-talent-page {
+  .new-project-page {
     padding: 15px;
   }
 
@@ -64,7 +71,8 @@
     font-size: 1.5rem;
   }
 
-  .form-input {
+  .form-input,
+  .form-textarea {
     font-size: 0.9rem;
   }
 

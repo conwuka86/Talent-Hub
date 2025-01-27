@@ -3,11 +3,12 @@ import './TalentItem.css';
 
 export default function TalentItem({ talent, onUpdate, onDelete }) {
   const [editing, setEditing] = useState(false);
+  const [team, setTeam] = useState(talent.team);
   const [skill, setSkill] = useState(talent.skill);
-
+  
   async function handleSave() {
     try {
-      await onUpdate(talent._id, { skill });
+      await onUpdate(talent._id, { team, skill });
       setEditing(false);
     } catch (err) {
       console.error('Update failed:', err);
@@ -18,11 +19,17 @@ export default function TalentItem({ talent, onUpdate, onDelete }) {
     <div className="talent-card">
       {editing ? (
         <>
+          <input
+            className="talent-input"
+            value={team}
+            onChange={(e) => setTeam(e.target.value)}
+            placeholder="Team Member"
+          />
           <textarea
-            className="talent-textarea"
+            className="project-textarea"
             value={skill}
             onChange={(e) => setSkill(e.target.value)}
-            placeholder="Edit Skill"
+            placeholder="Talent/Skill"
           />
           <div className="talent-actions">
             <button className="primary-btn" onClick={handleSave}>
@@ -35,10 +42,10 @@ export default function TalentItem({ talent, onUpdate, onDelete }) {
         </>
       ) : (
         <>
-          <h2 className="talent-name">{talent.name}</h2>
+          <h2 className="talent-team">{talent.team}</h2>
           <p className="talent-skill">{talent.skill}</p>
           <p className="talent-date">
-            <strong>Joined:</strong> {new Date(talent.createdAt).toLocaleDateString()}
+            <strong>Created:</strong> {new Date(talent.createdAt).toLocaleDateString()}
           </p>
           <div className="talent-actions">
             <button className="primary-btn" onClick={() => setEditing(true)}>

@@ -5,8 +5,8 @@ const Schema = mongoose.Schema;
 
 const talentSchema = new Schema(
   {
-    teamMember: { type: String, required: true },
-    skill: { type: String, required: true }, // TeamMember Skill
+    team: { type: String, required: true },
+    skill: { type: String, required: true }, // Team Skill
     user: {
       type: Schema.Types.ObjectId,
       required: true,

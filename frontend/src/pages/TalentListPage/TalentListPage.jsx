@@ -14,38 +14,38 @@ export default function TalentListPage() {
     fetchTalents();
   }, []);
 
-  async function handleUpdate(id, skill) {
-    try {
-      console.log('Updating talent with ID:', id, 'Skill:', skill); // Log the payload
-      const updatedTalent = await talentService.updateTalent(id, skill);
-      setTalents((prev) =>
-        prev.map((p) => (p._id === id ? updatedTalent : p))
+   async function handleUpdate(id, talentData) {
+      const updatedTalent = await talentService.updateTalent(id, talentData);
+      setTalents((prevTalents) =>
+        prevTalents.map((p) => (p._id === id ? updatedTalent : p))
       );
-    } catch (err) {
-      console.error('Error updating talent:', err);
     }
-  }
-
-  async function handleDelete(id) {
-    try {
+  
+    async function handleDelete(id) {
       await talentService.deleteTalent(id);
-      setTalents((prev) => prev.filter((p) => p._id !== id));
-    } catch (err) {
-      console.error('Error deleting talent:', err);
+      setTalents((prevTalents) => prevTalents.filter((p) => p._id !== id));
     }
-  }
-
   return (
-    <section>
-      <h1>Talent List</h1>
-      {talents.map((talent) => (
-        <TalentItem
-          key={talent._id}
-          talent={talent}
-          onUpdate={handleUpdate}
-          onDelete={handleDelete}
-        />
-      ))}
-    </section>
-  );
-}
+   <div className="talent-page">
+         <div className="header">
+           <h1>Talents</h1>
+           <button
+             className="primary-btn"
+             onClick={() => window.location.assign('/talents/new')}
+           >
+             Add Talent
+           </button>
+         </div>
+         <section className="talent-list-container">
+           {talents.map((talent) => (
+             <TalentItem
+               key={talent._id}
+               talent={talent}
+               onUpdate={handleUpdate}
+               onDelete={handleDelete}
+             />
+           ))}
+         </section>
+       </div>
+     );
+   }
