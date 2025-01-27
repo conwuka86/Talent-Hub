@@ -7,7 +7,6 @@ module.exports = {
   delete: deleteProject,
 };
 
-// Fetch all projects
 async function index(req, res) {
   try {
     const projects = await Project.find({}).populate('user').sort('-createdAt');
@@ -18,12 +17,11 @@ async function index(req, res) {
   }
 }
 
-// Create a new project
 async function create(req, res) {
   try {
-    console.log('Incoming Data:', req.body); // Log the request body
-    req.body.user = req.user._id; // Ensure user ID is added
-    const project = await Project.create(req.body); // Create project
+    console.log('Incoming Data:', req.body);
+    req.body.user = req.user._id;
+    const project = await Project.create(req.body);
     res.json(project);
   } catch (err) {
     console.error('Error in Create:', err.message);
@@ -31,14 +29,13 @@ async function create(req, res) {
   }
 }
 
-
-// Update an existing project
 async function update(req, res) {
+  console.log(req.body, req.params)
   try {
     const project = await Project.findByIdAndUpdate(
       req.params.id,
-      req.body, // Contains the updated project data
-      { new: true } // Return the updated project
+      req.body,
+      { new: true }
     );
     if (!project) {
       return res.status(404).json({ message: 'Project not found' });
@@ -50,7 +47,6 @@ async function update(req, res) {
   }
 }
 
-// Delete a project
 async function deleteProject(req, res) {
   try {
     const project = await Project.findByIdAndDelete(req.params.id);

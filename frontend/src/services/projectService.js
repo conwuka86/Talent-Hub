@@ -14,7 +14,7 @@ export async function create(projectData) {
 
 export async function updateProject(id, projectData) {
   console.log('Service Layer - Payload:', projectData); // Log payload
-  return sendRequest(`${BASE_URL}/${id}`, 'PUT', { projectData });
+  return sendRequest(`${BASE_URL}/${id}`, 'PUT',  projectData );
 }
 
 export async function deleteProject(id) {

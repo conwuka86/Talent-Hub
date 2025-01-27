@@ -7,11 +7,11 @@ export async function index() {
 }
 
 export async function create(skill) {
-  return sendRequest(BASE_URL, 'POST', { skill });
+  return sendRequest(BASE_URL, 'POST',  skill );
 }
 
 export async function updateTalent(id, skill) {
-  return sendRequest(`${BASE_URL}/${id}`, 'PUT', { skill });
+  return sendRequest(`${BASE_URL}/${id}`, 'PUT',  skill );
 }
 
 export async function deleteTalent(id) {
