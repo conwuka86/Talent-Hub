@@ -1,38 +1,20 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const commentSchema = new mongoose.Schema(
-  {
-    text: {
-      type: String,
-      required: true
-    },
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: "User", // Reference to the User model
-      required: true,
-  },
-},
-{
-  timestamps: true, // Adds `createdAt` and `updatedAt` fields
-}
-);
-
-
-
 const projectSchema = new Schema(
   {
-    content: { type: String, required: true },
+    name: { type: String, required: true }, // Project Name
+    description: { type: String, required: true }, // Project Description
+    content: { type: String }, // Optional field for additional content
     user: {
       type: Schema.Types.ObjectId,
       required: true,
-      ref: 'User'
+      ref: 'User', // User reference
     },
-    comments: [commentSchema],
   },
   {
-    timestamps: true,
+    timestamps: true, // Adds createdAt and updatedAt fields
   }
 );
 
-module.exports = mongoose.model('Project', projectSchema);
+module.exports = mongoose.model('POST', projectSchema);

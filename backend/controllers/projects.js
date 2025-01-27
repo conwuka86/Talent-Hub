@@ -1,38 +1,45 @@
 const Project = require('../models/project');
 
 module.exports = {
-  create,
   index,
+  create,
   update,
   delete: deleteProject,
 };
 
+// Fetch all projects
 async function index(req, res) {
   try {
     const projects = await Project.find({}).populate('user').sort('-createdAt');
     res.json(projects);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Fetching projects failed' });
+    res.status(500).json({ message: 'Failed to fetch projects' });
   }
 }
 
+// Create a new project
 async function create(req, res) {
   try {
-    req.body.user = req.user._id; // Assign user ID from request
-    const project = await Project.create(req.body);
+    console.log('Incoming Data:', req.body); // Log the request body
+    req.body.user = req.user._id; // Ensure user ID is added
+    const project = await Project.create(req.body); // Create project
     res.json(project);
   } catch (err) {
-    console.error(err);
-    res.status(400).json({ message: 'Create Project Failed' });
+    console.error('Error in Create:', err.message);
+    res.status(400).json({ message: 'Create Project Failed', error: err.message });
   }
 }
 
+
+// Update an existing project
 async function update(req, res) {
   try {
-    const project = await Project.findByIdAndUpdate(req.params.id, req.body, {
-      new: true, // Return updated document
-    });
+    const project = await Project.findByIdAndUpdate(
+      req.params.id,
+      req.body, // Contains the updated project data
+      { new: true } // Return the updated project
+    );
     if (!project) {
       return res.status(404).json({ message: 'Project not found' });
     }
@@ -43,6 +50,7 @@ async function update(req, res) {
   }
 }
 
+// Delete a project
 async function deleteProject(req, res) {
   try {
     const project = await Project.findByIdAndDelete(req.params.id);
@@ -55,5 +63,6 @@ async function deleteProject(req, res) {
     res.status(500).json({ message: 'Delete Project Failed' });
   }
 }
+
 
 

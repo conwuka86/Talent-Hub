@@ -3,32 +3,43 @@ import { useNavigate } from 'react-router';
 import * as projectService from '../../services/projectService';
 
 export default function NewProjectPage() {
-  const [content, setContent] = useState('');
-
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
   const navigate = useNavigate();
 
   async function handleSubmit(evt) {
     evt.preventDefault();
+  
+    const projectData = { name, description };
+    console.log('Payload Sent to Backend:', projectData); // Debugging the payload
+  
     try {
-      const project = await projectService.create(content);
-      navigate('/projects'); // Navigate to the projects list after creation
+      await projectService.create(projectData);
+      navigate('/projects');
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }
+  
 
   return (
     <>
-      <h2>New Project</h2>
+      <h2>Create New Project</h2>
       <form autoComplete="off" onSubmit={handleSubmit}>
-        <label>Project Content</label>
+        <label>Project Name</label>
         <input
           type="text"
-          value={content}
-          onChange={(evt) => setContent(evt.target.value)}
+          value={name}
+          onChange={(evt) => setName(evt.target.value)}
           required
         />
-        <button type="submit">CREATE PROJECT</button>
+        <label>Project Description</label>
+        <textarea
+          value={description}
+          onChange={(evt) => setDescription(evt.target.value)}
+          required
+        />
+        <button type="submit">Create Project</button>
       </form>
     </>
   );

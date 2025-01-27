@@ -14,37 +14,34 @@ export default function ProjectListPage() {
     fetchProjects();
   }, []);
 
-  async function handleUpdate(id, content) {
-    try {
-      const updatedProject = await projectService.updateProject(id, content);
-      setProjects((prev) =>
-        prev.map((p) => (p._id === id ? updatedProject : p))
-      );
-    } catch (err) {
-      console.error('Error updating project:', err);
-    }
+  async function handleUpdate(id, projectData) {
+    const updatedProject = await projectService.updateProject(id, projectData);
+    setProjects((prevProjects) =>
+      prevProjects.map((p) => (p._id === id ? updatedProject : p))
+    );
   }
 
   async function handleDelete(id) {
-    try {
-      await projectService.deleteProject(id);
-      setProjects((prev) => prev.filter((p) => p._id !== id));
-    } catch (err) {
-      console.error('Error deleting project:', err);
-    }
+    await projectService.deleteProject(id);
+    setProjects((prevProjects) => prevProjects.filter((p) => p._id !== id));
   }
 
   return (
-    <section>
-      <h1>Project List</h1>
-      {projects.map((project) => (
-        <ProjectItem
-          key={project._id}
-          project={project}
-          onUpdate={handleUpdate}
-          onDelete={handleDelete}
-        />
-      ))}
-    </section>
+    <>
+      <h1>Projects</h1>
+      <button onClick={() => window.location.assign('/projects/new')}>
+        Create New Project
+      </button>
+      <section>
+        {projects.map((project) => (
+          <ProjectItem
+            key={project._id}
+            project={project}
+            onUpdate={handleUpdate}
+            onDelete={handleDelete}
+          />
+        ))}
+      </section>
+    </>
   );
 }

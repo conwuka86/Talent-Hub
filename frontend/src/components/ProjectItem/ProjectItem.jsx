@@ -3,29 +3,31 @@ import * as projectService from '../../services/projectService';
 
 export default function ProjectItem({ project, onUpdate, onDelete }) {
   const [editing, setEditing] = useState(false);
-  const [content, setContent] = useState(project.content);
+  const [name, setName] = useState(project.name);
+  const [description, setDescription] = useState(project.description);
 
-  async function handleUpdate() {
-    try {
-      await onUpdate(project._id, content);
-      setEditing(false);
-    } catch (err) {
-      console.error('Update failed:', err);
-    }
+  function handleSave() {
+    onUpdate(project._id, { name, description });
+    setEditing(false);
   }
 
   return (
     <article>
       {editing ? (
         <>
-          <textarea value={content} onChange={(e) => setContent(e.target.value)} />
-          <button onClick={handleUpdate}>Save</button>
+          <input value={name} onChange={(e) => setName(e.target.value)} />
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <button onClick={handleSave}>Save</button>
           <button onClick={() => setEditing(false)}>Cancel</button>
         </>
       ) : (
         <>
-          <h4>{new Date(project.createdAt).toLocaleDateString()}</h4>
-          <p>{project.content}</p>
+          <h2>{project.name}</h2>
+          <p>{project.description}</p>
+          <p>Created: {new Date(project.createdAt).toLocaleDateString()}</p>
           <button onClick={() => setEditing(true)}>Edit</button>
           <button onClick={() => onDelete(project._id)}>Delete</button>
         </>
