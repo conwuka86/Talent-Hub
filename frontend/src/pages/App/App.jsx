@@ -10,6 +10,7 @@ import NewTalentPage from '../NewTalentPage/NewTalentPage';
 import SignUpPage from '../SignUpPage/SignUpPage';
 import LogInPage from '../LogInPage/LogInPage';
 import NavBar from '../../components/NavBar/NavBar';
+import ProjectDetailsPage from '../ProjectDetailsPage/ProjectDetailsPage';
 
 export default function App() {
   const [user, setUser] = useState(getUser());
@@ -25,6 +26,7 @@ export default function App() {
             <Route path="/projects/new" element={<NewProjectPage />} />
             <Route path="/talents" element={<TalentListPage />} />
             <Route path="/talents/new" element={<NewTalentPage />} />
+            <Route path="/projects/:id" element={<ProjectDetailsPage />} />
           </Routes>
         ) : (
           <Routes>

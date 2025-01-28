@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './ProjectItem.css';
+import { NavLink } from 'react-router';
 
 export default function ProjectItem({ project, onUpdate, onDelete }) {
   const [editing, setEditing] = useState(false);
@@ -38,11 +39,13 @@ export default function ProjectItem({ project, onUpdate, onDelete }) {
         </>
       ) : (
         <>
+          <NavLink to={`/projects/${project._id}`} end>
           <h2 className="project-title">{project.name}</h2>
           <p className="project-description">{project.description}</p>
           <p className="project-date">
             <strong>Created:</strong> {new Date(project.createdAt).toLocaleDateString()}
           </p>
+          </NavLink>
           <div className="project-actions">
             <button className="primary-btn" onClick={() => setEditing(true)}>
               Edit

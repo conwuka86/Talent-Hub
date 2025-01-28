@@ -10,10 +10,9 @@ const projectSchema = new Schema(
       required: true,
       ref: 'User', // User reference
     },
+    skills: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Talent'}],
   },
-  {
-    timestamps: true, // Adds createdAt and updatedAt fields
-  }
+  { timestamps: true }
 );
 
 module.exports = mongoose.model('POST', projectSchema);

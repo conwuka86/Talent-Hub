@@ -11,7 +11,9 @@ const talentSchema = new Schema(
       type: Schema.Types.ObjectId,
       required: true,
       ref: 'User'
-    },
+    },  
+        projects: [{ type: mongoose.Schema.Types.ObjectId, ref: 'POST'}],
+      
   },
   {
     timestamps: true,
