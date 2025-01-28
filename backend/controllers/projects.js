@@ -13,7 +13,7 @@ module.exports = {
 
 async function index(req, res) {
   try {
-    const projects = await Project.find({}).populate('user').sort('-createdAt');
+    const projects = await Project.find({ user: req.user._id }).populate('user').sort('-createdAt');
     res.json(projects);
   } catch (err) {
     console.error(err);
@@ -121,7 +121,7 @@ async function getProjectById(req, res) {
   try {
     const project = await Project.findById(req.params.id).populate('skills');
     console.log(project);
-    if (!project) {
+    if (!project || project.user.toString() !== req.user._id) {
       return res.status(404).json({ message: 'Project not found' });
     }
     res.json(project);

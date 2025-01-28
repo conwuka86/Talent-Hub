@@ -9,7 +9,7 @@ module.exports = {
 
 async function index(req, res) {
   try {
-    const talents = await Talent.find({}).populate('user').sort('-createdAt');
+    const talents = await Talent.find({ user: req.user._id }).populate('user').sort('-createdAt');
     res.json(talents);
   } catch (err) {
     console.error(err);
