@@ -5,7 +5,7 @@ import * as talentService from '../../services/talentService';
 import './ProjectDetailsPage.css';
 
 export default function ProjectDetailsPage() {
-  const { id } = useParams(); // Get project ID from URL
+  const { id } = useParams();
   const [project, setProject] = useState(null);
   const [allTalents, setAllTalents] = useState([]);
   const [newTalentId, setNewTalentId] = useState('');
@@ -28,7 +28,7 @@ export default function ProjectDetailsPage() {
       const updatedProject = await projectService.assignTalent(project._id, newTalentId);
       setProject(updatedProject.project);
       console.log(updatedProject);
-      setNewTalentId(''); // Reset selection
+      setNewTalentId('');
     } catch (err) {
       console.error('Error assigning talent:', err);
     }

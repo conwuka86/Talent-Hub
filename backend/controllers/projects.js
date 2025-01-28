@@ -1,7 +1,6 @@
 const Project = require('../models/project');
 const Talent = require('../models/talent');
 
-// Define the exported controller methods
 module.exports = {
   index,
   create,
@@ -12,7 +11,6 @@ module.exports = {
   getProjectById,
 };
 
-// Fetch all projects
 async function index(req, res) {
   try {
     const projects = await Project.find({}).populate('user').sort('-createdAt');
@@ -23,7 +21,6 @@ async function index(req, res) {
   }
 }
 
-// Create a new project
 async function create(req, res) {
   try {
     console.log('Incoming Data:', req.body);
@@ -36,7 +33,6 @@ async function create(req, res) {
   }
 }
 
-// Update an existing project
 async function update(req, res) {
   try {
     const project = await Project.findByIdAndUpdate(
@@ -54,7 +50,6 @@ async function update(req, res) {
   }
 }
 
-// Delete a project
 async function deleteProject(req, res) {
   try {
     const project = await Project.findByIdAndDelete(req.params.id);
@@ -68,21 +63,18 @@ async function deleteProject(req, res) {
   }
 }
 
-// Assign Talent to Project
 async function assignTalentToProject(req, res) {
   try {
     const { projectId, talentId } = req.params;
     console.log(projectId);
 
-    // Add the talent to the project's talents array
     const project = await Project.findByIdAndUpdate(
       projectId,
-      { $addToSet: { skills: talentId } }, // Prevent duplicates
+      { $addToSet: { skills: talentId } },
       { new: true }
     ).populate('skills');
     console.log(project);
 
-    // Add the project to the talent's projects array
     const talent = await Talent.findById(talentId)
     console.log(talent);
 
@@ -97,22 +89,19 @@ async function assignTalentToProject(req, res) {
   }
 }
 
-// Unassign Talent from Project
 async function unassignTalentFromProject(req, res) {
   try {
     const { projectId, talentId } = req.params;
 
-    // Remove the talent from the project's talents array
     const project = await Project.findByIdAndUpdate(
       projectId,
-      { $pull: { skills: talentId } }, // Remove the talent
+      { $pull: { skills: talentId } },
       { new: true }
     ).populate('skills');
 
-    // Remove the project from the talent's projects array
     const talent = await Talent.findByIdAndUpdate(
       talentId,
-      { $pull: { projects: projectId } }, // Remove the project
+      { $pull: { projects: projectId } },
       { new: true }
     ).populate('projects');
 
@@ -127,7 +116,6 @@ async function unassignTalentFromProject(req, res) {
   }
 }
 
-// Get Project by ID with Talents
 async function getProjectById(req, res) {
   console.log(req.params);
   try {

@@ -5,11 +5,10 @@ import './TalentStackerPage.css';
 
 export default function TalentStackerPage() {
   const [talents, setTalents] = useState([]);
-  const [stack, setStack] = useState([]); // Talents in the project stack
+  const [stack, setStack] = useState([]);
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
 
-  // Fetch talents and projects on component mount
   useEffect(() => {
     async function fetchData() {
       const fetchedTalents = await talentService.index();
@@ -20,7 +19,6 @@ export default function TalentStackerPage() {
     fetchData();
   }, []);
 
-  // Add talent to the stack
   const handleAddToStack = async (talent) => {
     if (selectedProject) {
       try {
@@ -28,14 +26,13 @@ export default function TalentStackerPage() {
           selectedProject._id,
           talent._id
         );
-        setStack(updatedProject.talents); // Update stack with the new list of talents
+        setStack(updatedProject.talents);
       } catch (err) {
         console.error('Error assigning talent:', err);
       }
     }
   };
 
-  // Remove talent from the stack
   const handleRemoveFromStack = async (talent) => {
     if (selectedProject) {
       try {
@@ -43,17 +40,16 @@ export default function TalentStackerPage() {
           selectedProject._id,
           talent._id
         );
-        setStack(updatedProject.talents); // Update stack after removal
+        setStack(updatedProject.talents);
       } catch (err) {
         console.error('Error unassigning talent:', err);
       }
     }
   };
 
-  // Select a project to stack talents into
   const handleProjectSelect = (project) => {
     setSelectedProject(project);
-    setStack(project.talents); // Initialize stack with project's existing talents
+    setStack(project.talents);
   };
 
   return (

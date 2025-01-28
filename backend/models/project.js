@@ -3,12 +3,12 @@ const Schema = mongoose.Schema;
 
 const projectSchema = new Schema(
   {
-    name: { type: String, required: true }, // Project Name
-    description: { type: String, required: true }, // Project Description
+    name: { type: String, required: true },
+    description: { type: String, required: true },
     user: {
       type: Schema.Types.ObjectId,
       required: true,
-      ref: 'User', // User reference
+      ref: 'User',
     },
     skills: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Talent'}],
   },

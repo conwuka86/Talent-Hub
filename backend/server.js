@@ -1,4 +1,4 @@
-const path = require('path'); // Built into Node
+const path = require('path');
 const express = require('express');
 const logger = require('morgan');
 const app = express();
