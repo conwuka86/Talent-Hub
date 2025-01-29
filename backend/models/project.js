@@ -10,9 +10,10 @@ const projectSchema = new Schema(
       required: true,
       ref: 'User',
     },
-    skills: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Talent'}],
+    skills: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Talent' }],
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model('POST', projectSchema);
+module.exports = mongoose.model('Project', projectSchema);
+

@@ -12,7 +12,7 @@ const talentSchema = new Schema(
       required: true,
       ref: 'User'
     },  
-        projects: [{ type: mongoose.Schema.Types.ObjectId, ref: 'POST'}],
+        projects: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Project'}],
       
   },
   {

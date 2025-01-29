@@ -11,9 +11,10 @@ module.exports = {
   getProjectById,
 };
 
+// Fetch all projects for a user
 async function index(req, res) {
   try {
-    const projects = await Project.find({ user: req.user._id }).populate('user').sort('-createdAt');
+    const projects = await Project.find({ user: req.user._id }).populate('skills');
     res.json(projects);
   } catch (err) {
     console.error(err);
@@ -21,9 +22,9 @@ async function index(req, res) {
   }
 }
 
+// Create a new project
 async function create(req, res) {
   try {
-    console.log('Incoming Data:', req.body);
     req.body.user = req.user._id;
     const project = await Project.create(req.body);
     res.json(project);
@@ -33,16 +34,19 @@ async function create(req, res) {
   }
 }
 
+// Update an existing project
 async function update(req, res) {
   try {
     const project = await Project.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true }
-    );
+    ).populate('skills');
+
     if (!project) {
       return res.status(404).json({ message: 'Project not found' });
     }
+    
     res.json(project);
   } catch (err) {
     console.error(err);
@@ -50,6 +54,7 @@ async function update(req, res) {
   }
 }
 
+// Delete a project
 async function deleteProject(req, res) {
   try {
     const project = await Project.findByIdAndDelete(req.params.id);
@@ -63,32 +68,38 @@ async function deleteProject(req, res) {
   }
 }
 
+// Assign Talent to a Project
 async function assignTalentToProject(req, res) {
   try {
     const { projectId, talentId } = req.params;
-    console.log(projectId);
 
-    const project = await Project.findByIdAndUpdate(
-      projectId,
-      { $addToSet: { skills: talentId } },
-      { new: true }
-    ).populate('skills');
-    console.log(project);
-
-    const talent = await Talent.findById(talentId)
-    console.log(talent);
+    // Fetch project and talent
+    const project = await Project.findById(projectId);
+    const talent = await Talent.findById(talentId);
 
     if (!project || !talent) {
       return res.status(404).json({ message: 'Project or Talent not found' });
     }
 
-    res.json({ project, talent });
+    // Prevent duplicate assignments
+    if (project.skills.includes(talent._id)) {
+      return res.status(400).json({ message: 'Talent is already assigned to this project' });
+    }
+
+    // Assign the talent (storing only the ObjectId reference)
+    project.skills.push(talent._id);
+    await project.save();
+
+    // Return updated project with populated skills
+    const updatedProject = await Project.findById(projectId).populate('skills');
+    res.json({ project: updatedProject });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Failed to assign talent to project', error: err.message });
   }
 }
 
+// Unassign Talent from a Project
 async function unassignTalentFromProject(req, res) {
   try {
     const { projectId, talentId } = req.params;
@@ -99,31 +110,26 @@ async function unassignTalentFromProject(req, res) {
       { new: true }
     ).populate('skills');
 
-    const talent = await Talent.findByIdAndUpdate(
-      talentId,
-      { $pull: { projects: projectId } },
-      { new: true }
-    ).populate('projects');
-
-    if (!project || !talent) {
-      return res.status(404).json({ message: 'Project or Talent not found' });
+    if (!project) {
+      return res.status(404).json({ message: 'Project not found' });
     }
 
-    res.json({ project, talent });
+    res.json({ project });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Failed to unassign talent from project', error: err.message });
   }
 }
 
+// Get Project by ID with populated skills
 async function getProjectById(req, res) {
-  console.log(req.params);
   try {
     const project = await Project.findById(req.params.id).populate('skills');
-    console.log(project);
+    
     if (!project || project.user.toString() !== req.user._id) {
       return res.status(404).json({ message: 'Project not found' });
     }
+    
     res.json(project);
   } catch (err) {
     console.error(err);

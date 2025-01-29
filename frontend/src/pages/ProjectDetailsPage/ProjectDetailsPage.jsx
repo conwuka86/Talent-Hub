@@ -22,12 +22,10 @@ export default function ProjectDetailsPage() {
 
   async function handleAssignTalent() {
     if (!newTalentId) return;
-    console.log(newTalentId);
-    console.log(project);
+
     try {
       const updatedProject = await projectService.assignTalent(project._id, newTalentId);
       setProject(updatedProject.project);
-      console.log(updatedProject);
       setNewTalentId('');
     } catch (err) {
       console.error('Error assigning talent:', err);
@@ -37,13 +35,13 @@ export default function ProjectDetailsPage() {
   async function handleUnassignTalent(talentId) {
     try {
       const updatedProject = await projectService.unassignTalent(project._id, talentId);
-      setProject(updatedProject.projects);
+      setProject(updatedProject.project);
     } catch (err) {
       console.error('Error unassigning talent:', err);
     }
   }
 
-  if (!project) return <p>You have successfully unassigned a talent. Please return to Project List!</p>;
+  if (!project) return <p>Loading project...</p>;
 
   return (
     <div className="project-details-page">
@@ -52,19 +50,20 @@ export default function ProjectDetailsPage() {
 
       <h2>Assigned Talents</h2>
       <ul>
-        {project.skills.length && project.skills?.map((talent) => (
-          <li key={talent._id}>
-            {talent.name} ({talent.skill})
-            <button onClick={() => handleUnassignTalent(talent._id)}>Unassign</button>
-          </li>
-        ))}
+        {project.skills?.length > 0 ? (
+          project.skills.map((talent) => (
+            <li key={talent._id}>
+              {talent.name} ({talent.skill})
+              <button onClick={() => handleUnassignTalent(talent._id)}>Unassign</button>
+            </li>
+          ))
+        ) : (
+          <p>No talents assigned yet.</p>
+        )}
       </ul>
 
       <h3>Assign New Talent</h3>
-      <select
-        value={newTalentId}
-        onChange={(e) => setNewTalentId(e.target.value)}
-      >
+      <select value={newTalentId} onChange={(e) => setNewTalentId(e.target.value)}>
         <option value="">Select Talent</option>
         {allTalents
           .filter((t) => !project.skills?.some((pt) => pt._id === t._id))
@@ -78,3 +77,4 @@ export default function ProjectDetailsPage() {
     </div>
   );
 }
+
