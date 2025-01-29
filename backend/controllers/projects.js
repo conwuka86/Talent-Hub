@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Project = require('../models/project');
 const Talent = require('../models/talent');
 
@@ -11,7 +12,7 @@ module.exports = {
   getProjectById,
 };
 
-// Fetch all projects for a user
+// Fetch all projects for the logged-in user
 async function index(req, res) {
   try {
     const projects = await Project.find({ user: req.user._id }).populate('skills');
@@ -72,6 +73,12 @@ async function deleteProject(req, res) {
 async function assignTalentToProject(req, res) {
   try {
     const { projectId, talentId } = req.params;
+    const { name, skill } = req.body;  // Extract name & skill from body
+
+    // Validate Object IDs
+    if (!mongoose.Types.ObjectId.isValid(projectId) || !mongoose.Types.ObjectId.isValid(talentId)) {
+      return res.status(400).json({ message: 'Invalid Project or Talent ID' });
+    }
 
     // Fetch project and talent
     const project = await Project.findById(projectId);
@@ -81,16 +88,22 @@ async function assignTalentToProject(req, res) {
       return res.status(404).json({ message: 'Project or Talent not found' });
     }
 
-    // Prevent duplicate assignments
-    if (project.skills.includes(talent._id)) {
+    // Check if the talent is already assigned
+    const isAlreadyAssigned = project.skills.some((t) => t._id.toString() === talent._id.toString());
+    if (isAlreadyAssigned) {
       return res.status(400).json({ message: 'Talent is already assigned to this project' });
     }
 
-    // Assign the talent (storing only the ObjectId reference)
-    project.skills.push(talent._id);
+    // Assign the talent (storing both name & skill)
+    project.skills.push({
+      _id: talent._id,
+      name: name,
+      skill: skill,
+    });
+
     await project.save();
 
-    // Return updated project with populated skills
+    // Return updated project with populated talents
     const updatedProject = await Project.findById(projectId).populate('skills');
     res.json({ project: updatedProject });
   } catch (err) {
@@ -104,9 +117,14 @@ async function unassignTalentFromProject(req, res) {
   try {
     const { projectId, talentId } = req.params;
 
+    // Validate Object IDs
+    if (!mongoose.Types.ObjectId.isValid(projectId) || !mongoose.Types.ObjectId.isValid(talentId)) {
+      return res.status(400).json({ message: 'Invalid Project or Talent ID' });
+    }
+
     const project = await Project.findByIdAndUpdate(
       projectId,
-      { $pull: { skills: talentId } },
+      { $pull: { skills: { _id: talentId } } }, // Remove by ID
       { new: true }
     ).populate('skills');
 

@@ -21,8 +21,8 @@ export async function deleteProject(id) {
   return sendRequest(`${BASE_URL}/${id}`, 'DELETE');
 }
 
-export function assignTalent(projectId, talentId) {
-  return sendRequest(`${BASE_URL}/${projectId}/talents/${talentId}`, 'PUT');
+export function assignTalent(projectId, talentId, talentData) {
+  return sendRequest(`${BASE_URL}/${projectId}/talents/${talentId}`, 'PUT', talentData);
 }
 
 export function unassignTalent(projectId, talentId) {

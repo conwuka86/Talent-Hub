@@ -10,10 +10,17 @@ const projectSchema = new Schema(
       required: true,
       ref: 'User',
     },
-    skills: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Talent' }],
+    skills: [
+      {
+        _id: { type: mongoose.Schema.Types.ObjectId, ref: 'Talent' },
+        name: String,  // Team Name
+        skill: String, // Talent Skill
+      },
+    ],
   },
   { timestamps: true }
 );
 
 module.exports = mongoose.model('Project', projectSchema);
+
 

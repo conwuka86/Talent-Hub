@@ -23,8 +23,21 @@ export default function ProjectDetailsPage() {
   async function handleAssignTalent() {
     if (!newTalentId) return;
 
+    // Find the selected talent from `allTalents`
+    const selectedTalent = allTalents.find((t) => t._id === newTalentId);
+    if (!selectedTalent) {
+      console.error("Talent not found!");
+      return;
+    }
+
+    // Create Talent Data (name & skill)
+    const talentData = {
+      name: selectedTalent.name,
+      skill: selectedTalent.skill,
+    };
+
     try {
-      const updatedProject = await projectService.assignTalent(project._id, newTalentId);
+      const updatedProject = await projectService.assignTalent(project._id, selectedTalent._id, talentData);
       setProject(updatedProject.project);
       setNewTalentId('');
     } catch (err) {
@@ -52,8 +65,8 @@ export default function ProjectDetailsPage() {
       <ul>
         {project.skills?.length > 0 ? (
           project.skills.map((talent) => (
-            <li key={talent._id}>
-              {talent.name} ({talent.skill})
+            <li key={talent._id} value={talent._id}>
+              {talent.name} ({talent.skill}) 
               <button onClick={() => handleUnassignTalent(talent._id)}>Unassign</button>
             </li>
           ))
@@ -69,6 +82,7 @@ export default function ProjectDetailsPage() {
           .filter((t) => !project.skills?.some((pt) => pt._id === t._id))
           .map((talent) => (
             <option key={talent._id} value={talent._id}>
+              {talent.name} ({talent.team})
               {talent.name} ({talent.skill})
             </option>
           ))}
