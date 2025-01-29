@@ -10,13 +10,7 @@ const projectSchema = new Schema(
       required: true,
       ref: 'User',
     },
-    skills: [
-      {
-        _id: { type: mongoose.Schema.Types.ObjectId, ref: 'Talent' },
-        name: String,  // Team Name
-        skill: String, // Talent Skill
-      },
-    ],
+    skills: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Talent' }],
   },
   { timestamps: true }
 );

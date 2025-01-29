@@ -66,6 +66,7 @@ export default function ProjectDetailsPage() {
         {project.skills?.length > 0 ? (
           project.skills.map((talent) => (
             <li key={talent._id} value={talent._id}>
+              {talent.name} ({talent.team})
               {talent.name} ({talent.skill}) 
               <button onClick={() => handleUnassignTalent(talent._id)}>Unassign</button>
             </li>

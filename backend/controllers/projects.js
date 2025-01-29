@@ -95,11 +95,7 @@ async function assignTalentToProject(req, res) {
     }
 
     // Assign the talent (storing both name & skill)
-    project.skills.push({
-      _id: talent._id,
-      name: name,
-      skill: skill,
-    });
+    project.skills.push(talentId);
 
     await project.save();
 
