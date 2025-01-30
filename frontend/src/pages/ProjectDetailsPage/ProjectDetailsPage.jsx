@@ -48,6 +48,7 @@ export default function ProjectDetailsPage() {
   async function handleUnassignTalent(talentId) {
     try {
       const updatedProject = await projectService.unassignTalent(project._id, talentId);
+      console.log(updatedProject);
       setProject(updatedProject.project);
     } catch (err) {
       console.error('Error unassigning talent:', err);

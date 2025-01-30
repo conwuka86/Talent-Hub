@@ -120,10 +120,10 @@ async function unassignTalentFromProject(req, res) {
 
     const project = await Project.findByIdAndUpdate(
       projectId,
-      { $pull: { skills: { _id: talentId } } }, // Remove by ID
+      { $pull: { skills:  talentId } }, // Remove by ID
       { new: true }
     ).populate('skills');
-
+    
     if (!project) {
       return res.status(404).json({ message: 'Project not found' });
     }
