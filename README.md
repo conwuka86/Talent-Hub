@@ -1,68 +1,83 @@
-Talent-hub
+# Talent-hub
 
+#### A Project and Talent Management Hub
+
+##### Talent-hub is ideal for project managers, HR recruiters, or team leads looking to build dynamic and skill-appropriate teams.
+
+<img src="https://i.imgur.com/C0svsPU.jpegt" />
+
+<img src="https://i.imgur.com/v8rmRW4.jpeg" />
+
+<img src="https://i.imgur.com/OG6iFKi.jpeg" />
+
+<img src="https://i.imgur.com/QR88qzW.jpeg" />
+
+<img src="https://i.imgur.com/tcWMyeK.jpeg" />
+
+## Description
 The Talent-hub app enables users to create, compile, and manage projects and a team of talents based on their specific skills and project needs.
-Talent-hub is ideal for project managers, HR recruiters, or team leads looking to build dynamic and skill-appropriate teams.
+
+## <a name="technologiesused"></a>Technologies Used
+* JavaScript
+* HTML
+* CSS
+* React
+* MongoDB
+* Heroku
+* VS Code
+
+## Features
+Project management
+Talent management
+
+## Trello Planning
+* Link to trello or planning board 
+https://trello.com/b/dltQzUTQ/talent-hub
 
 
-Screenshot
-
-https://i.imgur.com/C0svsPU.jpeg
-
-https://i.imgur.com/v8rmRW4.jpeg
-
-https://i.imgur.com/OG6iFKi.jpeg
-
-https://i.imgur.com/QR88qzW.jpeg
-
-https://i.imgur.com/tcWMyeK.jpeg
+## Click to experience Talent-hub!
+https://talent-hub-site-2f17be54fb5e.herokuapp.com/
 
 
 
-Technologies Used
-JavaScript
-HTML
-CSS
-React
-MongoDB
-Heroku
-VS Code
+## <a name="nextsteps"></a>Project Next Steps
+#### List of Future Features
+* Authentication & User Roles
+* User accounts to save lists and manage access. Roles for HR/Admin vs. Team Leads.
 
-Getting Started
-[Click to View Project Planning](https://trello.com/b/dltQzUTQ/talent-hub) 
+* Predefined Templates
+* Offer templates for common team structures. Users can use these templates and modify them as needed.
 
+* Skill Recommendation System
+* Suggest additional talents based on the current list composition.
+* Example: "Your team has developers but no QA testers; consider adding one."
 
-[Click to experience Talent-hub!](https://talent-hub-site-2f17be54fb5e.herokuapp.com/)
+* Real-Time Availability
+* A calendar integration for talents to mark their availability for specific project timelines.
 
-Next Steps
+* Drag-and-Drop Team Builder
+* Drag talents from the talent pool to a specific team list.
 
-Future enhancements
+* Export Functionality
+* Export talent lists as PDFs or CSVs for sharing.
 
-Authentication & User Roles
-User accounts to save lists and manage access.
-Roles for HR/Admin vs. Team Leads.
+* Integration with LinkedIn
+* Allow importing skills and experiences directly from LinkedIn profiles.
+* Dashboard Analytics:
 
-Predefined Templates
-Offer templates for common team structures
-Users can use these templates and modify them as needed.
+* Show stats like
+* Number of active projects.
+* Skills distribution in teams.
+* Gaps in team composition.
 
-Skill Recommendation System
-Suggest additional talents based on the current list composition.
-Example: "Your team has developers but no QA testers; consider adding one."
+## <a name="deployment"></a>Deployed Link
+[Heroku](https://talent-hub-site-2f17be54fb5e.herokuapp.com/)
 
-Real-Time Availability
-A calendar integration for talents to mark their availability for specific project timelines.
+* You can view the repository at:
+[Github.com](https://github.com/conwuka86/Talent-Hub)
 
-Drag-and-Drop Team Builder
-Drag talents from the talent pool to a specific team list.
+* If unable to view please go live locally through VS Code
 
-Export Functionality
-Export talent lists as PDFs or CSVs for sharing.
-
-Integration with LinkedIn
-Allow importing skills and experiences directly from LinkedIn profiles.
-Dashboard Analytics:
-
-Show stats like
-Number of active projects.
-Skills distribution in teams.
-Gaps in team composition.
+## <a name="Callistus Onwuka"></a>About The Author
+I build applications and mini projects tied to my various interests. I look for creative solutions to real world problems and think of technical ways to address them. While no application is ever perfect I find joy in the process and all my final products!
+    
